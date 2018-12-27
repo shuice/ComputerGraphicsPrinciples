@@ -1,0 +1,33 @@
+{
+  "Camera": {
+    "type": "Camera",
+    "transform": {
+      "posX": 0,
+      "posY": 0,
+      "posZ": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "scaleZ": 1,
+      "rotateX": 0,
+      "rotateY": 0,
+      "rotateZ": 0
+    },
+    "near": 1,
+    "far": 1,
+    "fov": 60
+  },
+  "box": {
+    "type": "Box",
+    "transform": {
+      "posX": 0,
+      "posY": 0,
+      "posZ": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "scaleZ": 1,
+      "rotateX": 0,
+      "rotateY": 0,
+      "rotateZ": 0
+    }
+  }
+}
