@@ -13,9 +13,13 @@ namespace ComputerGraphics.Tools
 
         public string name;
 
-        
+        public Object()
+        {
+            transform = new Transform();
+            name = "";
+        }
 
-        public List<Line> GetLines() { return new List<Line>(); }
+        public virtual List<Line> GetLines() { return new List<Line>(); }
 
         public List<Triangle> GetTriangles() { return new List<Triangle>();
             
@@ -25,7 +29,7 @@ namespace ComputerGraphics.Tools
 
     class CubeObject : Object
     {
-        List<Line> GetLines()
+        public override List<Line> GetLines()
         {
             List<Line> lines = new List<Line>();
             lines.Add(new Line(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(+0.5f, -0.5f, -0.5f)));
@@ -43,6 +47,18 @@ namespace ComputerGraphics.Tools
             lines.Add(new Line(new Vector3(+0.5f, -0.5f, +0.5f), new Vector3(+0.5f, +0.5f, +0.5f)));
             lines.Add(new Line(new Vector3(-0.5f, -0.5f, +0.5f), new Vector3(-0.5f, +0.5f, +0.5f)));
 
+            return lines;
+        }
+    }
+
+    class CoordinateObject : Object
+    {
+        public override List<Line> GetLines()
+        {
+            List<Line> lines = new List<Line>();
+            lines.Add(new Line(new Vector3(0, 0, 0), new Vector3(10, 0, 0)));
+            lines.Add(new Line(new Vector3(0, 0, 0), new Vector3(0, 10, 0)));
+            lines.Add(new Line(new Vector3(0, 0, 0), new Vector3(0, 0, 10)));
             return lines;
         }
     }

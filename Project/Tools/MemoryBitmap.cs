@@ -22,6 +22,7 @@ namespace ComputerGraphics.Tools
         ~MemoryBitmap()
         {
             UnLock();
+            bitmap.Dispose(); 
         }
 
         private void Lock()
@@ -53,8 +54,24 @@ namespace ComputerGraphics.Tools
             return Color.FromArgb(A, R, G, B);
         }
 
+        public void DrawLine(Point from, Point to)
+        {
+            UnLock();
+            Graphics g = Graphics.FromImage(bitmap);
+            Pen p = new Pen(Color.Black);
+            g.DrawLine(p, from, to);
+            Lock();
+        }
+
         public void SetColor(Int32 x, Int32 y, Color color)
         {
+            if ((x < 0)
+                || (x >= bitmap.Width)
+                || (y < 0)
+                || (y >= bitmap.Height))
+            {
+                return;
+            }
             unsafe
             {
                 byte* pByte = (byte*)bitmapData.Scan0 + x * 4 + y * bitmapData.Stride;
@@ -67,10 +84,11 @@ namespace ComputerGraphics.Tools
 
         public Bitmap GetBitmapCopy()
         {
+            
             Random random = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
             {
-                for (int j = 0; j < 100; j ++)
+                for (int j = 0; j < 20; j ++)
                 {
                     
                     SetColor(i, j, Color.FromArgb(255, 255, 0, 0));

@@ -20,7 +20,8 @@ namespace ComputerGraphics
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string selectedFile = SelectFile();
+            //string selectedFile = SelectFile();
+            string selectedFile = "1";
             if (selectedFile.Length == 0)
             {
                 return;
