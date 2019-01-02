@@ -78,7 +78,7 @@
     <Compile Include="Tools\Line.cs" />
     <Compile Include="Tools\Matrix4x4.cs" />
     <Compile Include="Tools\MemoryBitmap.cs" />
-    <Compile Include="Tools\Object.cs" />
+    <Compile Include="Tools\Object3D.cs" />
     <Compile Include="Tools\Size.cs" />
     <Compile Include="Tools\TNode.cs" />
     <Compile Include="Tools\Transform.cs" />

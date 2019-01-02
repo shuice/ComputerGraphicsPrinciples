@@ -21,8 +21,8 @@ namespace ComputerGraphics.Tools
 
         ~MemoryBitmap()
         {
-            UnLock();
-            bitmap.Dispose(); 
+            //UnLock();
+            bitmap.Dispose();
         }
 
         private void Lock()
@@ -54,21 +54,36 @@ namespace ComputerGraphics.Tools
             return Color.FromArgb(A, R, G, B);
         }
 
-        public void DrawLine(Point from, Point to)
+        public void DrawLine(Point from, Point to, Color color)
         {
+            if ((IsPointIn(from) == false) || (IsPointIn(to) == false))
+            {
+                return;
+            }
+
             UnLock();
             Graphics g = Graphics.FromImage(bitmap);
-            Pen p = new Pen(Color.Black);
+            Pen p = new Pen(color);
+
             g.DrawLine(p, from, to);
             Lock();
         }
 
+        private bool IsPointIn(Point pt)
+        {
+            if ((pt.X < 0)
+                || (pt.X >= bitmap.Width)
+                || (pt.Y < 0)
+                || (pt.Y >= bitmap.Height))
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void SetColor(Int32 x, Int32 y, Color color)
         {
-            if ((x < 0)
-                || (x >= bitmap.Width)
-                || (y < 0)
-                || (y >= bitmap.Height))
+            if (IsPointIn(new Point(x, y)) == false)
             {
                 return;
             }
@@ -84,20 +99,10 @@ namespace ComputerGraphics.Tools
 
         public Bitmap GetBitmapCopy()
         {
-            
-            Random random = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < 20; i++)
-            {
-                for (int j = 0; j < 20; j ++)
-                {
-                    
-                    SetColor(i, j, Color.FromArgb(255, 255, 0, 0));
-                }
-            }
-           
             UnLock();
             Bitmap copyedBitmap = new Bitmap(bitmap);
             Lock();
+            copyedBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
             return copyedBitmap;
         }
     }

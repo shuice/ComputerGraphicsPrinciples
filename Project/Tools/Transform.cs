@@ -21,17 +21,25 @@ namespace ComputerGraphics.Tools
 
         public Matrix4x4 TransformMatrix()
         {
-            Matrix4x4 matrix = Matrix4x4.Translation(pos.x, pos.y, pos.z)
-                                * RotateMatrix()
-                                * Matrix4x4.Scale(scale.x, scale.y, scale.z);
+            Matrix4x4 matrix = Matrix4x4.CrossProduct(Matrix4x4.CrossProduct(Matrix4x4.Translation(pos.x, pos.y, pos.z), RotateMatrix()), Matrix4x4.Scale(scale.x, scale.y, scale.z));
             return matrix;
         }
 
-        private Matrix4x4 RotateMatrix()
+        public Matrix4x4 RotateMatrix()
         {
-            Matrix4x4 matrix = Matrix4x4.RotateZ(rotate.z)
-                                * Matrix4x4.RotateX(rotate.z)
-                                * Matrix4x4.RotateY(rotate.y);
+            Matrix4x4 matrix = Matrix4x4.CrossProduct(Matrix4x4.CrossProduct(Matrix4x4.RotateY(rotate.y), Matrix4x4.RotateX(rotate.x)), Matrix4x4.RotateZ(rotate.z));
+            return matrix;
+        }
+
+        public Matrix4x4 InverseRotateMatrix()
+        {
+            Matrix4x4 matrix = Matrix4x4.CrossProduct(Matrix4x4.CrossProduct(Matrix4x4.RotateY(-rotate.y), Matrix4x4.RotateX(-rotate.x)), Matrix4x4.RotateZ(-rotate.z));
+            return matrix;
+        }
+
+        public Matrix4x4 InverseTransformMatrix()
+        {
+            Matrix4x4 matrix = Matrix4x4.CrossProduct(Matrix4x4.CrossProduct(Matrix4x4.Scale(1 / scale.x, 1 / scale.y, 1 / scale.z), InverseRotateMatrix()), Matrix4x4.Translation(-pos.x, -pos.y, -pos.z));
             return matrix;
         }
     }

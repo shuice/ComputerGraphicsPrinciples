@@ -9,13 +9,17 @@ namespace ComputerGraphics.Tools
 {
     class EnvBuilder
     {
-        private NTree<Object> objectTree;
+        private NTree<Object3D> objectTree;
         private Int32 width;
         private Int32 height;
         private MemoryBitmap memoryBitmap;
         private Matrix4x4 viewMatrix;
         private Matrix4x4 projectionMatrix;
-        private Camera camera;
+        public Camera camera;
+        public Object3D GetRootObject()
+        {
+            return objectTree.data;
+        }
 
         public EnvBuilder(string projectJson)
         {
@@ -23,18 +27,35 @@ namespace ComputerGraphics.Tools
             InitCamera();
         }
 
-        private void TreeVisitor(Object ob)
+        public EnvBuilder(Object3D ob)
+        {
+            objectTree = new NTree<Object3D>(ob);
+            InitCamera();
+        }
+
+        private void TreeVisitor(Object3D ob)
         {
             Draw(ob);
         }
 
-        private void Draw(Object ob)
+        private void Test(Matrix4x4 modalMatrix, Vector3 modal)
+        {
+            Vector4 r1 = Matrix4x4.CrossProduct(modalMatrix, new Vector4(modal, 1));
+            Vector4 r2 = Matrix4x4.CrossProduct(viewMatrix, r1);
+            Vector4 r3 = Matrix4x4.CrossProduct(projectionMatrix, r2);
+            System.Console.WriteLine(String.Format("{0}{1}", r1, r2));
+        }
+
+        private void Draw(Object3D ob)
         {
             Matrix4x4 modalMatrix = ob.transform.TransformMatrix();
-            Matrix4x4 mvp = projectionMatrix * viewMatrix * modalMatrix;
+            Matrix4x4 mvp = Matrix4x4.CrossProduct(Matrix4x4.CrossProduct(projectionMatrix, viewMatrix), modalMatrix);
             List<Line> lines = ob.GetLines();
             foreach(Line line in lines)
             {
+                Test(modalMatrix, line.from);
+                Test(modalMatrix, line.to);
+
                 DrawLine(line, ref mvp);
             }
         }
@@ -49,20 +70,20 @@ namespace ComputerGraphics.Tools
 
         private void DrawLine(Line line, ref Matrix4x4 mvp)
         {
-            Vector4 from    = mvp * new Vector4(line.from,  1);
-            Vector4 to      = mvp * new Vector4(line.to,    1);
+            Vector4 from    = Matrix4x4.CrossProduct(mvp, new Vector4(line.from,  1));
+            Vector4 to      = Matrix4x4.CrossProduct(mvp, new Vector4(line.to,    1));
 
             Point screenFrom = ProjectToScreen(from);
             Point screenTo   = ProjectToScreen(to);
 
             System.Console.WriteLine(String.Format("lf{0}, lt{1}, vf{2}, vt{3}, sf{4}, st{5}", line.from, line.to, from, to, screenFrom, screenTo));
 
-            DrawLineOnScreen(screenFrom, screenTo);
+            DrawLineOnScreen(screenFrom, screenTo, line.color);
         }
 
-        private void DrawLineOnScreen(Point screenFrom, Point screenTo)
+        private void DrawLineOnScreen(Point screenFrom, Point screenTo, Color color)
         {
-            memoryBitmap.DrawLine(screenFrom, screenTo);
+            memoryBitmap.DrawLine(screenFrom, screenTo, color);
         }
 
         public Bitmap Render(Int32 width, Int32 height)
@@ -90,11 +111,11 @@ namespace ComputerGraphics.Tools
             projectionMatrix = camera.ProjectMatrix();
         }
 
-        private NTree<Object> ParseFile(string projectJson)
+        private NTree<Object3D> ParseFile(string projectJson)
         {
-            Object cube = new CubeObject();
-            cube.transform.scale = new Vector3(4, 4, 2);
-            NTree<Object> objectTree = new NTree<Object>(cube);
+            Object3D cube = new CubeObject();
+            cube.transform.scale = new Vector3(4, 4, 4);
+            NTree<Object3D> objectTree = new NTree<Object3D>(cube);
             return objectTree;
         }
 
@@ -103,12 +124,12 @@ namespace ComputerGraphics.Tools
             camera = new Camera
             {
                 fov = 60,
-                near = 2,
+                near = 0.4f,
                 far = 100,
                 aspect = 1.33f
             };
-            camera.transform.pos = new Vector3(4, 4, -4);
-            camera.transform.rotate = new Vector3(30, -45, 0);
+            camera.transform.pos = new Vector3(8, 8, -40);
+            //camera.transform.rotate = new Vector3(20, -60, 0);
         }
     }
 }
