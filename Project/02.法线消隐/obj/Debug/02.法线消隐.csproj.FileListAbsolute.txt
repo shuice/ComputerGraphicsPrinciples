@@ -1,0 +1,14 @@
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/ComputerGraphics.exe.config
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/ComputerGraphics.exe
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/ComputerGraphics.pdb
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/Newtonsoft.Json.dll
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/Newtonsoft.Json.pdb
+/Code/ComputerGraphics/Project/02.法线消隐/bin/Debug/Newtonsoft.Json.xml
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/02.法线消隐.csprojAssemblyReference.cache
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/ComputerGraphics.Form1.resources
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/ComputerGraphics.Properties.Resources.resources
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/02.法线消隐.csproj.GenerateResource.cache
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/02.法线消隐.csproj.CoreCompileInputs.cache
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/02.法线消隐.csproj.CopyComplete
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/ComputerGraphics.exe
+/Code/ComputerGraphics/Project/02.法线消隐/obj/Debug/ComputerGraphics.pdb

@@ -1,0 +1,20 @@
+﻿<Properties StartupConfiguration="{53E1E0D0-2DE3-4028-AEA5-19A3C81203B5}|Default">
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Tools/Line.cs" Line="1" Column="1" />
+      <File FileName="Tools/Object3D.cs" Line="18" Column="26" />
+      <File FileName="Tools/Triangle.cs" Line="25" Column="19" />
+      <File FileName="Tools/EnvBuilder.cs" Line="72" Column="14" />
+      <File FileName="Tools/Vector3.cs" Line="27" Column="10" />
+      <File FileName="Tools/MemoryBitmap.cs" Line="1" Column="1" />
+      <File FileName="Tools/Matrix4x4.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.02.法线消隐 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
