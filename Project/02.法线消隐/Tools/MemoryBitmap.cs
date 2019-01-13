@@ -54,6 +54,13 @@ namespace ComputerGraphics.Tools
             return Color.FromArgb(A, R, G, B);
         }
 
+        private void Swap(ref Point from, ref Point to)
+        {
+            Point tmp = from;
+            from = to;
+            to = tmp;
+        }
+
         public void DrawLine(Point from, Point to, Color color)
         {
             if ((IsPointIn(from) == false) || (IsPointIn(to) == false))
@@ -61,12 +68,48 @@ namespace ComputerGraphics.Tools
                 return;
             }
 
-            UnLock();
-            Graphics g = Graphics.FromImage(bitmap);
-            Pen p = new Pen(color);
 
-            g.DrawLine(p, from, to);
-            Lock();
+            int xDistance = Math.Abs(to.X - from.X);
+            int yDistance = Math.Abs(to.Y - from.Y);
+            if (xDistance < yDistance)
+            {
+                if (from.Y > to.Y)
+                {
+                    Swap(ref from, ref to);
+                }
+                int xBegin = from.X;
+                float xStep = (xDistance * 1.0f / yDistance) * ((to.X > from.X) ? 1 : -1);
+                int yBegin = from.Y;
+                int yEnd = to.Y;
+                int pointCount = yEnd - yBegin + 1;
+
+                for (int pointIndex = 0; pointIndex < pointCount; pointIndex ++)
+                {
+                    int x = (int)(Math.Round(xBegin + pointIndex * xStep));
+                    int y = yBegin + pointIndex;
+                    SetColor(x, y, color);
+                }
+            }
+            else
+            {
+                if (from.X > to.X)
+                {
+                    Swap(ref from, ref to);
+                }
+                int yBegin = from.Y;
+                float yStep = (yDistance * 1.0f / xDistance) * ((to.Y > from.Y) ? 1 : -1);
+                int xBegin = from.X;
+                int xEnd = to.X;
+                int pointCount = xEnd - xBegin + 1;
+
+                for (int pointIndex = 0; pointIndex < pointCount; pointIndex++)
+                {
+                    int x = xBegin + pointIndex;
+                    int y = (int)(Math.Round(yBegin + pointIndex * yStep));
+                    SetColor(x, y, color);
+                }
+            }
+
         }
 
         private bool IsPointIn(Point pt)
